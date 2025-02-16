@@ -2,8 +2,6 @@
 
 Discord bot/Node.js chatbot for [CookieRhyme: Tour of Awesomeness](https://osu.ppy.sh/community/forums/topics/2017591?n=1).
 
-# Setup
-
 ## Python package installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install.
@@ -24,6 +22,12 @@ After doing the setup, start PostgreSQL by going to the bin folder (typically in
 pg_ctl.exe restart -D  "C:\Program Files\PostgreSQL\17\data"
 ```
 
+Open the psql app, enter your credentials (should be able to spam enter until it asks for a password), and then create the database with this query:
+
+```bash
+CREATE DATABASE cookierun;
+```
+
 ### Linux:
 
 You can also install PostgreSQL through the command line:
@@ -38,9 +42,23 @@ Start PostgreSQL using:
 sudo systemctl start postgresql
 ```
 
-## .env setup
+Open psql with:
+
+```bash
+sudo -u postgres psql
+```
+
+Enter credentials if you have to, and then create the database:
+
+```bash
+CREATE DATABASE cookierun;
+```
+
+## Variable setup
 
 ### Python:
+
+#### .env:
 
 - `DISCORD_BOT_TOKEN`: Your Discord bot's access token (obtainable from the [Discord Developer Portal](https://discord.com/developers/applications) under the `Bot` tab)
 - `OSU_API_KEY`: Your osu! API key (obtainable from your [account settings page](https://osu.ppy.sh/home/account/edit#legacy-api))
@@ -54,9 +72,20 @@ sudo systemctl start postgresql
 - `POOL_TAB`: The tab name where all the mappools kept
 - `USERNAME`: Your osu! username
 
+#### database.ini:
+
+Default variables are already setup, just put your postgres password in.
+
 ### JS:
 
 - `GOOGLE_SHEET_ID`: The ID string in your data spreadsheet URL
 - `SERVICE_ACCT_FILE`: The name of your [Google service account file](https://cloud.google.com/iam/docs/keys-create-delete)
 - `RAID_TAB_NAME`: The spreadsheet tab name to store the raid data in
-- `CONSTRING`: The string needed to connect to PostgreSQL (postgres://`username``password`@`host:port`/`database`)
+- `CONSTRING`: The string needed to connect to PostgreSQL (`postgres://usernamepassword@host:port/database`)
+
+#### config.json:
+
+ - `username`: Your osu! username
+ - `password`: Your IRC password (obtainable from your [account settings page](https://osu.ppy.sh/home/account/edit#legacy-api))
+ - `api_key`: Your osu! API key (obtainable from your [account settings page](https://osu.ppy.sh/home/account/edit#legacy-api))
+ - `userId`: Your osu! UID (The numbers in your profile link)

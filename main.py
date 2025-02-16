@@ -23,16 +23,16 @@ API_KEY = os.environ.get('OSU_API_KEY')
 client = Bot(command_prefix=BOT_PREFIX, intents=intents)
 node_processes = []
 observers = []
-verifications = []
+cancellations = []
 ready_json = {}
 sent = False
 connection = database.connect()
 database.initialize(connection)
 
-def run_verification():
-    verifications.append(subprocess.Popen(["node", "./osubot/verification.js"]))
-    print('Starting verification...\n')
-    output = verifications[-1]
+def run_cancellation():
+    cancellations.append(subprocess.Popen(["node", "./osubot/cancel.js"]))
+    print('Starting cancellation...\n')
+    output = cancellations[-1]
 
 def run_node_server():
     node_processes.append(subprocess.Popen(["node", "./osubot/app.js"]))
@@ -444,7 +444,9 @@ async def raid_mp_links(interaction: discord.Interaction, type: app_commands.Cho
 ])
 async def cancel_raid(interaction: discord.Interaction, team: str, type: app_commands.Choice[str], stage: str, raid_num: str):
     if interaction.user.guild_permissions.administrator:
-        return
+        database.cancel_match()
+        server = Thread(target=run_cancellation)
+        server.start()
     else:
         await interaction.response.send_message(f"You are not allowed to use this command.")
 

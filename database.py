@@ -220,7 +220,10 @@ def get_user_from_id(connection, id: str):
 
 def cancel_match(connection, team: str, type: str, stage: str, raid_num: str):
     cursor = connection.cursor()
-    cursor.execute("CREATE TABLE temp (ID SERIAL PRIMARY KEY, team VARCHAR(255), type VARCHAR(255), stage VARCHAR(255), raid_num VARCHAR(255)")
+    cursor.execute("CREATE TABLE temp (ID SERIAL PRIMARY KEY, team VARCHAR(255), type VARCHAR(255), stage VARCHAR(255), raid_num VARCHAR(255));")
+    cursor.execute(f"INSERT INTO temp (team, type, stage, raid_num) VALUES ('{team}', '{type}', '{stage}', '{raid_num}');")
+
+    connection.commit()
 
 def remove(connection, item: str, column: str, table: str):
     cursor = connection.cursor()

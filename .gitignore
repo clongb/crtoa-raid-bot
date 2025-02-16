@@ -1,6 +1,6 @@
 *.env
 *.env.local
 *.env.staging
-*.ini
+database.ini
 c*.json
 osubot/log.txt
