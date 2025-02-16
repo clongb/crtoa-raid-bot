@@ -1,0 +1,6 @@
+*.env
+*.env.local
+*.env.staging
+*.ini
+c*.json
+osubot/log.txt
